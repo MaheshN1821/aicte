@@ -7,12 +7,15 @@ export const useAdminWorkouts = (user) => {
   useEffect(() => {
     const fetchAdminWorkouts = async () => {
       try {
-        const response = await fetch("/api/workouts/admin/all", {
-          credentials: true,
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
+        const response = await fetch(
+          "https://aicte-management.vercel.app/api/workouts/admin/all",
+          {
+            credentials: "include",
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
         const data = await response.json();
 
         if (!response.ok) {

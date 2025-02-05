@@ -15,12 +15,16 @@ const WorkoutDetails = ({ workout }) => {
       return;
     }
 
-    const response = await fetch("/api/workouts/" + workout._id, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      "https://aicte-management.vercel.app/api/workouts/" + workout._id,
+      {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     const json = await response.json();
 
     if (response.ok) {
@@ -79,7 +83,9 @@ const WorkoutDetails = ({ workout }) => {
         <strong>Activity Points: </strong>
         {workout.points}
       </p>
-      <p>{formatDistanceToNow(new Date(workout.createdAt), { addSuffix: true })}</p>
+      <p>
+        {formatDistanceToNow(new Date(workout.createdAt), { addSuffix: true })}
+      </p>
 
       {/* Button to toggle preview visibility */}
       <button className="toggle-preview-btn" onClick={togglePreview}>

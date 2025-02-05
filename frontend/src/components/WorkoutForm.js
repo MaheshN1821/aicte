@@ -1,13 +1,13 @@
-import { useState, useRef } from 'react';
-import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
-import { useAuthContext } from '../hooks/useAuthContext';
+import { useState, useRef } from "react";
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const WorkoutForm = () => {
   const { dispatch } = useWorkoutsContext();
   const { user } = useAuthContext();
 
-  const [title, setTitle] = useState('');
-  const [points, setPoints] = useState('');
+  const [title, setTitle] = useState("");
+  const [points, setPoints] = useState("");
   const [certificate, setCertificate] = useState(null); // File state
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
@@ -18,24 +18,28 @@ const WorkoutForm = () => {
     e.preventDefault();
 
     if (!user) {
-      setError('You must be logged in');
+      setError("You must be logged in");
       return;
     }
 
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('points', points);
+    formData.append("title", title);
+    formData.append("points", points);
     if (certificate) {
-      formData.append('certificate', certificate);
+      formData.append("certificate", certificate);
     }
 
-    const response = await fetch('/api/workouts', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-      body: formData, // Send the form data
-    });
+    const response = await fetch(
+      "https://aicte-management.vercel.app/api/workouts",
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: formData, // Send the form data
+      }
+    );
 
     const json = await response.json();
 
@@ -45,13 +49,13 @@ const WorkoutForm = () => {
     }
 
     if (response.ok) {
-      setTitle('');
-      setPoints('');
+      setTitle("");
+      setPoints("");
       setCertificate(null);
-      fileInputRef.current.value = ''; // Reset the file input
+      fileInputRef.current.value = ""; // Reset the file input
       setError(null);
       setEmptyFields([]);
-      dispatch({ type: 'CREATE_WORKOUT', payload: json });
+      dispatch({ type: "CREATE_WORKOUT", payload: json });
     }
   };
 
@@ -64,7 +68,7 @@ const WorkoutForm = () => {
         type="text"
         onChange={(e) => setTitle(e.target.value)}
         value={title}
-        className={emptyFields.includes('title') ? 'error' : ''}
+        className={emptyFields.includes("title") ? "error" : ""}
       />
 
       <label>Activity Points:</label>
@@ -72,7 +76,7 @@ const WorkoutForm = () => {
         type="number"
         onChange={(e) => setPoints(e.target.value)}
         value={points}
-        className={emptyFields.includes('points') ? 'error' : ''}
+        className={emptyFields.includes("points") ? "error" : ""}
       />
 
       <label>Upload Certificate:</label>

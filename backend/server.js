@@ -26,7 +26,7 @@ const corsOptions = {
   },
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
+  credentials: "include",
   maxAge: 86400,
 };
 
@@ -45,6 +45,10 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // routes
 app.use("/api/workouts", workoutRoutes);
 app.use("/api/user", userRoutes);
+
+app.get("/", (req, res) => {
+  console.log("Hello World");
+});
 
 // connect to db
 mongoose
