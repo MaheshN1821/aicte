@@ -14,9 +14,8 @@ const app = express();
 const corsOptions = {
   origin: function (origin, callback) {
     const allowedOrigins = [
-      "https://know-your-med-lake.vercel.app",
-      "https://know-your-medicine.vercel.app",
-      "https://www.know-your-medicine.vercel.app",
+      "https://aicte-student-management.vercel.app",
+      "https://www.aicte-student-management.vercel.app",
     ];
 
     if (!origin || allowedOrigins.includes(origin)) {
