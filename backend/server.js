@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
 const cors = require("cors");
 const path = require("path"); // Required to work with file paths
 const workoutRoutes = require("./routes/workouts");
