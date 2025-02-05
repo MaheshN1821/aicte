@@ -32,6 +32,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.options("*", cors(corsOptions));
 // middleware
 app.use(express.json());
 
@@ -47,7 +48,7 @@ app.use("/api/workouts", workoutRoutes);
 app.use("/api/user", userRoutes);
 
 app.get("/", (req, res) => {
-  console.log("Hello World");
+  res.send("hello world");
 });
 
 // connect to db
